@@ -81,7 +81,7 @@ Navigate the AWS CloudWatch console, click on "Logs" on the left panel and then
 
 Then create a new log stream within the log group called "test-stream":
 
-![log-group.png](https://github.com/epwalsh/aws-log-monitor/blob/master/.figures/test-stream.png)
+![log-group.png](https://github.com/epwalsh/aws-log-monitor/blob/master/.figures/log-stream.png)
 
 Lastly, to get the Lambda function to start monitoring the new log group we just created,
 we run the following:
