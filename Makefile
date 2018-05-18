@@ -1,28 +1,18 @@
-log-group      = /aws/test-group
-log-stream     = test-stream
-message        = ERROR (this is a test)
-site-packages := `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`
+log-group  = /aws/test-group
+log-stream = test-stream
+message    = ERROR (this is a test)
+
+SRCS := $(wildcard lambda/*.py)
 
 
-.PHONY : build
-build :
+deployment.zip : $(SRCS)
 	@cd lambda && zip -r ../deployment.zip *
 
-.PHONY : setup
-setup :
-	workon logmonitor
-	cd lambda && \
-		pip install -r requirements.txt && \
-		ln -s $(site-packages) packages
-
-.PHONY : push
-push :
-	aws lambda update-function-code \
-		--function-name "logmonitor" \
-		--zip-file fileb://./deployment.zip
-
 .PHONY : deploy
-deploy : build push
+deploy : deployment.zip
+	aws lambda update-function-code \
+		--function-name "log-monitor" \
+		--zip-file fileb://./deployment.zip
 
 .PHONY : add-log-group
 add-log-group :
@@ -37,5 +27,4 @@ test :
 
 .PHONY : clean
 clean :
-	rm -f ./lambda/packages
 	rm -f *.zip

@@ -13,7 +13,7 @@ from slacker import Slacker
 
 
 SLACK_TOKEN = os.environ["SLACK_API_TOKEN"]
-SLACK_CHANNEL = "#" + os.environ["TARGET_SLACK_CHANNEL"]
+SLACK_CHANNEL = "#" + os.environ.get("TARGET_SLACK_CHANNEL", "logs")
 
 slack = Slacker(SLACK_TOKEN)
 
