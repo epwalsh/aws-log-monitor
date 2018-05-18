@@ -1,12 +1,13 @@
 # aws-log-monitor
 
 This is an AWS Lambda function that monitors CloudWatch Log Streams for patterns,
-and sends Slack notifications to the channel `#logs` when the pattern is found.
+and sends Slack notifications to a channel when the pattern is found.
 
 > The choice of Slack as a destination is arbitrary and could easily be changed
 to something else, such as email.
 
-By default, the key pattern is the term `ERROR`, so whenever that term occurs in a log stream being monitored, this information will be sent to Slack.
+By default, the key term is `ERROR`.
+So whenever `ERROR` occurs in a log stream being monitored, this information will be sent to Slack.
 
 ## Requirements (for OS X or Linux)
 
@@ -17,9 +18,9 @@ installed. If you already Python 3 and pip, just run the following:
 pip install -r requirements.txt
 ```
 
-If you've never used the AWS CLI before, see 
+If you've never used the AWS CLI before, see
 [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
-TLDR: you'll need to have IAM user with programmatic access setup. Then you need to create two
+TLDR: you'll need to have an IAM user with programmatic access setup. Then you need to create two
 files `~/.aws/config` and `~/.aws/credentials`.
 
 `~/.aws/config` will look something like this:
@@ -52,7 +53,7 @@ Run `./bootstrap.sh`. This will:
 - Build a deployment package.
 - Create a Lambda function on AWS with the role attached and upload the deployment package.
 
-**2. Setup a Slack bot.**
+**2. Set up a Slack bot user.**
 
 If you don't have one already, see
 [Create a bot for your workspace](https://get.slack.help/hc/en-us/articles/115005265703-Create-a-bot-for-your-workspace).
@@ -63,16 +64,17 @@ AWS Lambda console like so:
 
 ![environment.png](https://github.com/epwalsh/aws-log-monitor/blob/master/.figures/environment.png)
 
-The last thing you need to do in order for the Lambda function to be able to 
-deliver messages to Slack is to setup a Slack channel and invite the bot you
-just created to the channel. You can do this all through the Slack dashboard or
+The last thing you need to do in order for the Lambda function to be able to
+deliver messages to Slack is to create a Slack channel and invite the bot user
+to that channel. You can do this through the Slack dashboard or
 application. By default, the Lambda function assumes the channel name is "logs",
-but you can change that by setting the environment variable `TARGET_SLACK_CHANNEL`.
+but you can change that by setting the environment variable `TARGET_SLACK_CHANNEL`
+in the same way that you just set the API token environment variable above.
 
-**3. Setup a log group to monitor.**
+**3. Set up a log group to monitor.**
 
-The Lambda function should now be deployed to AWS, but we will need to point it to at least one 
-log group to verify that it works. We'll just set up a dummy log group here for testing.
+The Lambda function should now be deployed to AWS, but we will need to point it to at least one
+log group to verify that it works. We'll just create a dummy log group here for testing.
 
 Navigate the AWS CloudWatch console, click on "Logs" on the left panel and then
 "Create log group", and enter the name "test-group" as shown here:
@@ -84,7 +86,7 @@ Then create a new log stream within the log group called "test-stream":
 ![log-group.png](https://github.com/epwalsh/aws-log-monitor/blob/master/.figures/log-stream.png)
 
 Lastly, to get the Lambda function to start monitoring the new log group we just created,
-we run the following:
+run the following `make` command:
 
 ```
 make add-log-group log-group=/aws/test-group id=test-group
