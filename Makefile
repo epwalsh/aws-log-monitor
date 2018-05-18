@@ -1,6 +1,6 @@
-log-group  = /aws/test-group
-log-stream = test-stream
-message    = ERROR (this is a test)
+log-group  = "/aws/test-group"
+log-stream = "test-stream"
+message    = "ERROR (this is a test)"
 
 SRCS := $(wildcard lambda/*.py)
 
@@ -18,6 +18,7 @@ deploy : deployment.zip
 add-log-group :
 	AWS_ACCOUNT=$(account) \
 		LOG_GROUP=$(log-group) \
+		LOG_GROUP_ID=$(id) \
 		AWS_REGION=$(region) \
 		./add_log_group.sh
 
