@@ -12,5 +12,5 @@ aws lambda add-permission \
 aws logs put-subscription-filter \
     --log-group-name "$LOG_GROUP" \
     --filter-name "error" \
-    --filter-pattern "ERROR - BrokenPipeError" \
+    --filter-pattern "ERROR" \
     --destination-arn "arn:aws:lambda:$AWS_REGION:$AWS_ACCOUNT:function:log-monitor"
