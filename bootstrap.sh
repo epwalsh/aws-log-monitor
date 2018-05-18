@@ -57,7 +57,6 @@ cd -
 echo "Waiting for role to be registered"
 sleep 5
 
-# Create lambda function.
 echo "Creating Lambda function log-monitor"
 aws lambda create-function \
     --function-name log-monitor \

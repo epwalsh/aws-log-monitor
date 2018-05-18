@@ -9,7 +9,7 @@ to something else, such as email.
 By default, the key term is `ERROR`.
 So whenever `ERROR` occurs in a log stream being monitored, this information will be sent to Slack.
 
-## Requirements (for OS X or Linux)
+## Requirements (OS X or Linux)
 
 Make sure you have Python 3, `pip`, `awscli`, `virtualenv`, and `virtualenvwrapper`
 installed. If you already Python 3 and pip, just run the following:
@@ -38,7 +38,7 @@ aws_access_key_id = *****
 aws_secret_access_key = *****
 ```
 
-## Quick start in 5 minutes or less (OS X or Linux)
+## Quick start in 5 minutes or less (OS X or Linux) :+1: :ok_hand: :+1: :ok_hand: :raised_hands: :clap:
 
 **1. Run the bootstraping script.**
 
@@ -53,7 +53,7 @@ Run `./bootstrap.sh`. This will:
 - Build a deployment package.
 - Create a Lambda function on AWS with the role attached and upload the deployment package.
 
-**2. Set up a Slack bot user.**
+**2. Set up a Slack bot user.** :space_invader:
 
 If you don't have one already, see
 [Create a bot for your workspace](https://get.slack.help/hc/en-us/articles/115005265703-Create-a-bot-for-your-workspace).
@@ -97,3 +97,5 @@ That's it! You can now send a fake error message into the log stream to test if 
 ```
 make test log-group=/aws/test-group message="ERROR" log-stream=test-stream
 ```
+
+Happy logging! :sunglasses:
