@@ -16,14 +16,17 @@ deploy : deployment.zip
 
 .PHONY : add-log-group
 add-log-group :
-	@cd scripts && \
-		./02_permissions.sh $(id) $(log-group) && \
-		./03_subscription_filter.sh $(log-group)
+	AWS_ACCOUNT=$(account) \
+		LOG_GROUP=$(log-group) \
+		AWS_REGION=$(region) \
+		./add_log_group.sh
 
 .PHONY : test
 test :
-	@cd scripts && \
-		./put_event.sh "$(log-group)" "$(message)" "$(log-stream)"
+	LOG_GROUP=$(log-group) \
+		LOG_STREAM=$(log-stream) \
+		LOG_MESSAGE=$(message) \
+		./put_event.sh
 
 .PHONY : clean
 clean :

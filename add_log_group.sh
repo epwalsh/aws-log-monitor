@@ -3,7 +3,7 @@
 
 aws lambda add-permission \
     --function-name "log-monitor" \
-    --statement-id "log-monitor-$LOG_GROUP-$LOG_STREAM" \
+    --statement-id "log-monitor-$LOG_GROUP" \
     --principal "logs.us-west-2.amazonaws.com" \
     --action "lambda:InvokeFunction" \
     --source-arn "arn:aws:logs:$AWS_REGION:$AWS_ACCOUNT:log-group:$LOG_GROUP:*" \
